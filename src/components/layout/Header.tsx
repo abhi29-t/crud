@@ -11,12 +11,12 @@ import { NavLink } from "react-router-dom";
 
 const pages = [
   { title: "Home", link: "/home" },
-  { title: "Documents", link: "/docs" },
+  { title: "Students", link: "/students" },
 ];
 
 const Header = () => {
   return (
-    <AppBar position="static">
+    <AppBar position="static" className="Header">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* // LOGO */}
