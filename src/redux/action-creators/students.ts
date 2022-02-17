@@ -26,3 +26,23 @@ export const fetch_studentsData = () => async (dispatch: Dispatch<Action>) => {
     });
   }
 };
+
+export const selectStudent = () => async (dispatch: Dispatch<Action>) => {
+  dispatch({
+    type: ActionType.GET_STUDENT_DETAILS,
+  });
+  try {
+    const { data } = await LocalhostApi.get("/mock/students_data.json");
+    setTimeout(() => {
+      dispatch({
+        type: ActionType.GET_STUDENT_DETAILS_SUCCESS,
+        payload: data,
+      });
+    }, 2000);
+  } catch (error: any) {
+    dispatch({
+      type: ActionType.GET_STUDENT_DETAILS_ERROR,
+      payload: error.message,
+    });
+  }
+};

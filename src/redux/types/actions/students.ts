@@ -1,3 +1,4 @@
+import { Student } from "../../../Types/students";
 import { ActionType } from "../action-types";
 
 export interface FetchStudentsList {
@@ -6,7 +7,7 @@ export interface FetchStudentsList {
 
 export interface FetchStudentsListSuccess {
   type: ActionType.FETCH_STUDENTS_LIST_SUCCESS;
-  payload: {}[];
+  payload: Student[];
 }
 
 export interface FetchStudentsListError {
@@ -14,7 +15,24 @@ export interface FetchStudentsListError {
   payload: string;
 }
 
+export interface GetStudentDetails {
+  type: ActionType.GET_STUDENT_DETAILS;
+}
+
+export interface GetStudentDetailsSuccess {
+  type: ActionType.GET_STUDENT_DETAILS_SUCCESS;
+  payload: Student;
+}
+
+export interface GetStudentDetailsError {
+  type: ActionType.GET_STUDENT_DETAILS_ERROR;
+  payload: string;
+}
+
 export type StudentsAction =
   | FetchStudentsList
   | FetchStudentsListSuccess
-  | FetchStudentsListError;
+  | FetchStudentsListError
+  | GetStudentDetails
+  | GetStudentDetailsSuccess
+  | GetStudentDetailsError;
