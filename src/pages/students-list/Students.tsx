@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Loader from "../../components/Loader";
 import Pagination from "../../components/Pagination";
+import Table from "../../components/Table/Table";
 import useActions from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { Student } from "../../Types/students";
@@ -11,51 +12,11 @@ import StudentsController from "./StudentsController";
 const Students = () => {
   const {} = StudentsController();
   const { fetch_studentsData } = useActions();
-  const { loading, error, studentsData, totalStudents } = useTypedSelector(
-    (state) => state.studentsRecord
-  );
+  const { loading, error } = useTypedSelector((state) => state.studentsRecord);
   useEffect(() => {
-    fetch_studentsData(1, 50);
-    console.log("fetched");
+    fetch_studentsData();
   }, []);
 
-  const [order, setOrder] = useState("asc");
-  const [data, setData] = useState(studentsData);
-  const sorting = (param: any) => {
-    if (order === "asc") {
-      const sorted = [...studentsData].sort((a: any, b: any) => {
-        return a[param].toLowerCase() > b[param].toLowerCase() ? 1 : -1;
-      });
-      setData(sorted);
-      setOrder("dsc");
-    }
-    if (order === "dsc") {
-      const sorted = [...studentsData].sort((a: any, b: any) => {
-        return a[param].toLowerCase() < b[param].toLowerCase() ? 1 : -1;
-      });
-      setData(sorted);
-      setOrder("asc");
-    }
-  };
-
-  const [studentsList, setStudentsList] = useState(data);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [studentsPerPage, setPostsPerPage] = useState(5);
-
-  const indexOfLastStudent = currentPage * studentsPerPage;
-  const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
-  const currentStudents = studentsList.slice(
-    indexOfFirstStudent,
-    indexOfLastStudent
-  );
-  console.log("page", currentPage);
-  // const sortedData = studentsData.sort((a,b)=> )
-  const paginate = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
-  useEffect(() => {
-    setStudentsList(data);
-  }, [data]);
   return (
     <div>
       {/* {studentsData.length !== 0 &&
@@ -72,7 +33,7 @@ const Students = () => {
             sports_person={student.sports_person}
           />
         ))} */}
-      <table>
+      {/* <table>
         <thead>
           <tr>
             <th
@@ -106,12 +67,9 @@ const Students = () => {
             </tr>
           ))}
         </tbody>
-      </table>
-      <Pagination
-        totalStudents={totalStudents}
-        studentsPerPage={studentsPerPage}
-        paginate={paginate}
-      />
+      </table> */}
+      <Table />
+
       {loading && <Loader />}
       {error && <DataNotFound />}
     </div>

@@ -34,7 +34,6 @@ export const studentsDataReducer = (
         totalStudents: 0,
       };
     case ActionType.FETCH_STUDENTS_LIST_SUCCESS:
-      console.log("redux", state.studentsData, action.payload);
       return {
         ...state,
         loading: false,
@@ -43,7 +42,6 @@ export const studentsDataReducer = (
         totalStudents: action.totalStudents,
       };
     case ActionType.FETCH_STUDENTS_LIST_ERROR:
-      console.log("error");
       return {
         ...state,
         loading: false,
