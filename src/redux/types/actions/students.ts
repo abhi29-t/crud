@@ -8,6 +8,7 @@ export interface FetchStudentsList {
 export interface FetchStudentsListSuccess {
   type: ActionType.FETCH_STUDENTS_LIST_SUCCESS;
   payload: Student[];
+  totalStudents: number;
 }
 
 export interface FetchStudentsListError {

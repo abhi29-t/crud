@@ -11,10 +11,8 @@ const Student = () => {
   );
   const params = useParams();
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   setStudent();
-  // }, []);
-  const currentStudent = studentsData.find(
+
+  const currentStudent = studentsData!.find(
     (stud: typeStudent) => stud.id.toString() === params.studentID
   );
   const nextStudent = (id: number = 2) => {

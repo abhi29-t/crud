@@ -1,14 +1,7 @@
 import { Student } from "../../Types/students";
 import { ActionType } from "../types/action-types";
 import { StudentsAction } from "../types/actions";
-
-type StudentsState = {
-  loading: boolean;
-  error: null | string;
-  studentsData: Student[];
-  selectedStudent: Student | null;
-  totalStudents: number;
-};
+import { StudentsState } from "../types/initial-states-type";
 
 const initialState: StudentsState = {
   loading: false,
@@ -32,23 +25,25 @@ export const studentsDataReducer = (
   action: StudentsAction
 ) => {
   switch (action.type) {
+    // GET STUDENTS DATA
     case ActionType.FETCH_STUDENTS_LIST:
       return {
         ...state,
         loading: true,
         error: null,
-        studentsData: [],
         totalStudents: 0,
       };
     case ActionType.FETCH_STUDENTS_LIST_SUCCESS:
+      console.log("redux", state.studentsData, action.payload);
       return {
         ...state,
         loading: false,
         error: null,
-        studentsData: action.payload,
-        totalStudents: action.payload.length,
+        studentsData: [...state.studentsData, ...action.payload],
+        totalStudents: action.totalStudents,
       };
     case ActionType.FETCH_STUDENTS_LIST_ERROR:
+      console.log("error");
       return {
         ...state,
         loading: false,
@@ -56,6 +51,8 @@ export const studentsDataReducer = (
         studentsData: [],
         totalStudents: 0,
       };
+
+    // GET DATA FOR SELECTED STUDENT ID
     case ActionType.GET_STUDENT_DETAILS:
       return {
         ...state,
