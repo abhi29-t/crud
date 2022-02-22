@@ -49,7 +49,7 @@ const DocumentRow: React.FC<Args> = (props) => {
               alt={`${props.first_name} ${props.last_name}`}
             />
           </Grid>
-          <Grid item sm={8} md={9} lg={9}>
+          <Grid item sm={6} md={7} lg={7}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 {props.first_name} {props.last_name}
@@ -65,25 +65,27 @@ const DocumentRow: React.FC<Args> = (props) => {
               </Typography>
             </CardContent>
           </Grid>
-          <Grid item sm={1} md={1} lg={1}>
-            {/* <Button
-            style={{ height: "100%", width: "100%" }}
-            onClick={() => remove_student(props.id)}
-          >
-            <DeleteSweepIcon />
-          </Button> */}
+          <Grid item sm={3} md={3} lg={3}>
             <Button
-              style={{ height: "100%", width: "100%" }}
+              style={{ height: "100%" }}
+              onClick={() => remove_student(props.id)}
+            >
+              <DeleteSweepIcon />
+            </Button>{" "}
+            |
+            <Button
+              style={{ height: "100%" }}
               onClick={() => setOpenDrawer(true)}
             >
               <ModeEditIcon />
             </Button>
-            {/* <Button
-            style={{ height: "100%", width: "100%" }}
-            onClick={() => redirectTo(`/doc-${props.id}`)}
-          >
-            <ArrowForwardIosIcon />
-          </Button> */}
+            |{" "}
+            <Button
+              style={{ height: "100%" }}
+              onClick={() => redirectTo(`/doc-${props.id}`)}
+            >
+              <ArrowForwardIosIcon />
+            </Button>
           </Grid>
         </Grid>
       </Card>

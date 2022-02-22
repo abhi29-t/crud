@@ -20,7 +20,7 @@ export const fetch_studentsData = () => async (dispatch: Dispatch<Action>) => {
     setTimeout(() => {
       dispatch({
         type: ActionType.FETCH_STUDENTS_LIST_SUCCESS,
-        payload: data.slice(0, 9),
+        payload: data,
         totalStudents: data.length,
       });
     }, 1500);
@@ -31,6 +31,34 @@ export const fetch_studentsData = () => async (dispatch: Dispatch<Action>) => {
     });
   }
 };
+
+export const get_StudentDetails =
+  (id: number) => async (dispatch: Dispatch) => {
+    dispatch({ type: ActionType.GET_STUDENT_DETAILS });
+
+    try {
+      const { data } = await LocalhostApi.get("/mock/students_data.json");
+      const studentRequired = data.find(
+        (student: Student) => student.id === id
+      );
+      if (studentRequired === undefined) {
+        throw "The document you are trying to access, do not exist or have been removed";
+      }
+
+      setTimeout(() => {
+        dispatch({
+          type: ActionType.GET_STUDENT_DETAILS_SUCCESS,
+          payload: studentRequired,
+          totalStudents: data.length,
+        });
+      }, 1500);
+    } catch (error: any) {
+      dispatch({
+        type: ActionType.GET_STUDENT_DETAILS_ERROR,
+        payload: error,
+      });
+    }
+  };
 
 export const add_student =
   (inputs: Student) => async (dispatch: Dispatch, state: any) => {

@@ -22,6 +22,7 @@ export interface GetStudentDetails {
 export interface GetStudentDetailsSuccess {
   type: ActionType.GET_STUDENT_DETAILS_SUCCESS;
   payload: Student;
+  totalStudents: number;
 }
 export interface GetStudentDetailsError {
   type: ActionType.GET_STUDENT_DETAILS_ERROR;

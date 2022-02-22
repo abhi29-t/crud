@@ -34,7 +34,6 @@ const Documents = () => {
 
   const indexOfLastStudent = currentPage * studentsPerPage;
   const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
-  console.log("stucents", studentsList);
   const currentStudentsToShow = studentsList.slice(
     indexOfFirstStudent,
     indexOfLastStudent

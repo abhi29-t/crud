@@ -7,8 +7,8 @@ const initialState: StudentsState = {
   loading: false,
   error: null,
   selectedStudent: {
-    id: 1,
-    birth_year: 2000,
+    id: 0,
+    birth_year: 0,
     email: "",
     first_name: "",
     gender: "",
@@ -25,7 +25,7 @@ export const studentsDataReducer = (
   action: StudentsAction
 ) => {
   switch (action.type) {
-    // GET STUDENTS DATA
+    // FETCH STUDENTS LIST
     case ActionType.FETCH_STUDENTS_LIST:
       return {
         ...state,
@@ -48,6 +48,30 @@ export const studentsDataReducer = (
         error: action.payload,
         studentsData: [],
         totalStudents: 0,
+      };
+
+    // GET STUDENT DETAILS
+    case ActionType.GET_STUDENT_DETAILS:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+        // selectedStudent: {},
+      };
+    case ActionType.GET_STUDENT_DETAILS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        selectedStudent: action.payload,
+        totalStudents: action.totalStudents,
+      };
+    case ActionType.GET_STUDENT_DETAILS_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        // selectedStudent: {},
       };
 
     // ADD STUDENT
