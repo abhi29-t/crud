@@ -38,7 +38,7 @@ export const studentsDataReducer = (
         ...state,
         loading: false,
         error: null,
-        studentsData: [...state.studentsData, ...action.payload],
+        studentsData: action.payload,
         totalStudents: action.totalStudents,
       };
     case ActionType.FETCH_STUDENTS_LIST_ERROR:
@@ -50,29 +50,59 @@ export const studentsDataReducer = (
         totalStudents: 0,
       };
 
-    // GET DATA FOR SELECTED STUDENT ID
-    case ActionType.GET_STUDENT_DETAILS:
+    // ADD STUDENT
+    case ActionType.ADD_STUDENT:
       return {
         ...state,
         loading: true,
         error: null,
-        selectedStudent: null,
       };
-    case ActionType.GET_STUDENT_DETAILS_SUCCESS:
+    case ActionType.ADD_STUDENT_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
-        selectedStudent: action.payload,
+        studentsData: [...state.studentsData, action.payload],
       };
-    case ActionType.GET_STUDENT_DETAILS_ERROR:
+
+    // UPDATE STUDENT DETAILS
+    case ActionType.UPDATE_STUDENT_DETAILS:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case ActionType.UPDATE_STUDENT_DETAILS_SUCCESS:
+      const updatedList = state.studentsData.map((student) => {
+        if (student.id === action.payload.id) {
+          return action.payload;
+        }
+        return student;
+      });
       return {
         ...state,
         loading: false,
-        error: action.payload,
-        selectedStudent: null,
+        error: null,
+        studentsData: updatedList,
       };
 
+    // REMOVE STUDENT DETAILS
+    case ActionType.REMOVE_STUDENT:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case ActionType.REMOVE_STUDENT_SUCCESS:
+      const remainingStudents = state.studentsData.filter(
+        (student) => student.id !== action.payload
+      );
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        studentsData: remainingStudents,
+      };
     default:
       return state;
   }

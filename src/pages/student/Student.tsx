@@ -47,7 +47,7 @@ const Student = () => {
           <Grid item container padding="1.5rem 0">
             <Grid item md={3} lg={5}>
               <img
-                src={`https://source.unsplash.com/random/900×700/?face,${currentStudent?.gender}`}
+                // src={`https://source.unsplash.com/random/900×700/?face,${currentStudent?.gender}`}
                 style={{ height: "100%", width: "100%" }}
                 alt={`${currentStudent!.first_name} ${
                   currentStudent!.last_name

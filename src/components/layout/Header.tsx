@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom";
 
 const pages = [
   { title: "Home", link: "/home" },
-  { title: "Students", link: "/students" },
+  { title: "Students", link: "/documents" },
 ];
 
 const Header = () => {

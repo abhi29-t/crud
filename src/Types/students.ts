@@ -6,5 +6,5 @@ export type Student = {
   gender: string;
   image: string;
   last_name: string;
-  sports_person: boolean;
+  sports_person: string | boolean;
 };

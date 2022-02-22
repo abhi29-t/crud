@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import Loader from "../../components/Loader";
 import Pagination from "../../components/Pagination";
@@ -5,12 +6,15 @@ import Table from "../../components/Table/Table";
 import useActions from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { Student } from "../../Types/students";
-import DataNotFound from "../DataNotFound";
+import DataNotFound from "../Common/DataNotFound";
+import AddEditDetailsDrawer from "./addEditStudentDetails-drawer/AddEditDetailsDrawer";
 import StudentDetails from "./studentDetails-container/StudentDetails";
+import { Main } from "./Students.style";
 import StudentsController from "./StudentsController";
 
 const Students = () => {
   const {} = StudentsController();
+  const [drawerFor, setDrawerFor] = useState("Add");
   const { fetch_studentsData } = useActions();
   const { loading, error } = useTypedSelector((state) => state.studentsRecord);
   useEffect(() => {
@@ -18,7 +22,8 @@ const Students = () => {
   }, []);
 
   return (
-    <div>
+    <Main>
+      <Button onClick={() => setDrawerFor("Add")}>Add</Button>
       {/* {studentsData.length !== 0 &&
         studentsData.map((student: Student) => (
           <StudentDetails
@@ -72,7 +77,8 @@ const Students = () => {
 
       {loading && <Loader />}
       {error && <DataNotFound />}
-    </div>
+      {true && <AddEditDetailsDrawer drawerFor={drawerFor} />}
+    </Main>
   );
 };
 

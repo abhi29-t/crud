@@ -102,7 +102,7 @@ const PaginatedTable: React.FC = () => {
             <tr key={index}>
               <td style={{ width: "4rem", height: "4rem" }} align="right">
                 <img
-                  src={`https://source.unsplash.com/random/900×700/?face,${student.gender}`}
+                  // src={`https://source.unsplash.com/random/900×700/?face,${student.gender}`}
                   style={{ height: "100%", width: "100%" }}
                   alt={`${student.first_name} ${student.last_name}`}
                 />
