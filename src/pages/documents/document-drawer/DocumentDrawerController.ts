@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
+import * as Yup from "yup";
+
+// CUSTOM HOOKS
 import useActions from "../../../hooks/useActions";
+
+// TYPES
 import { Student } from "../../../Types/students";
 
 type Args = {
@@ -15,7 +20,7 @@ const initialValues = {
   email: "",
   gender: "",
   sports_person: "",
-  birth_year: 0,
+  birth_year: 1980,
   id: 0,
   image: "",
 };
@@ -25,7 +30,7 @@ const DocumentDrawerController = (props: Args) => {
   const [formikInitialValues, setFormikInitialValues] =
     useState<Student>(initialValues);
 
-  const formikSubmitHandler = (inputs: any) => {
+  const formikSubmitHandler = (inputs: any, { resetForm }: any) => {
     if (props.drawerFor === "update") {
       update_studentDetails(inputs);
     }
@@ -33,7 +38,35 @@ const DocumentDrawerController = (props: Args) => {
       add_student({ ...inputs, id: "", img: "" });
     }
     props.setOpenDrawer(false);
+    resetForm();
   };
+
+  const formikValidationSchema = Yup.object().shape({
+    first_name: Yup.string()
+      .min(2, "Too short!")
+      .max(30, "Too long!")
+      .required("Required"),
+    last_name: Yup.string()
+      .min(2, "Too short!")
+      .max(30, "Too long!")
+      .required("Required"),
+    email: Yup.string()
+      .email("Must be a valid email")
+      .max(50)
+      .required("Required"),
+    gender: Yup.string()
+      .min(2, "Too short!")
+      .max(30, "Too long!")
+      .required("Required"),
+    sports_person: Yup.string()
+      .min(2, "Too short!")
+      .max(30, "Too long!")
+      .required("Required"),
+    birth_year: Yup.number()
+      .min(1980, "Too old!")
+      .max(2004, "Too young!")
+      .required("Required"),
+  });
 
   useEffect(() => {
     if (typeof props.data !== "string") {
@@ -44,7 +77,7 @@ const DocumentDrawerController = (props: Args) => {
     }
   }, [props.data]);
 
-  return { formikInitialValues, formikSubmitHandler };
+  return { formikInitialValues, formikValidationSchema, formikSubmitHandler };
 };
 
 export default DocumentDrawerController;

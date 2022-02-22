@@ -14,13 +14,23 @@ const Pagination: React.FC<Args> = ({
     pageNumbers.push(i);
   }
   return (
-    <nav>
-      <ul>
+    <nav style={{ padding: "1rem" }}>
+      <ul
+        style={{ listStyle: "none", display: "flex", justifyContent: "center" }}
+      >
+        <li style={{ margin: "0 .5rem" }}>
+          <button>Prev</button>
+        </li>{" "}
+        |
         {pageNumbers.map((num) => (
-          <li key={num}>
+          <li key={num} style={{ margin: "0 .5rem" }}>
             <button onClick={() => paginate(num)}>{num}</button>
           </li>
-        ))}
+        ))}{" "}
+        |
+        <li style={{ margin: "0 .5rem" }}>
+          <button>Next</button>
+        </li>
       </ul>
     </nav>
   );

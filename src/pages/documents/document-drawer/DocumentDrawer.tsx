@@ -12,10 +12,12 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 // STYLE FILE
-import { drawerWidth } from "./DocumentDrawer.style";
+import { drawerWidth, useStyles } from "./DocumentDrawer.style";
 
 // CUSTOM HOOKS
 import useActions from "../../../hooks/useActions";
@@ -30,41 +32,45 @@ type Args = {
 };
 
 const DocumentDrawer: React.FC<Args> = (props) => {
-  const { formikInitialValues, formikSubmitHandler } =
+  const { formikInitialValues, formikSubmitHandler, formikValidationSchema } =
     DocumentDrawerController(props);
 
+  const classes = useStyles();
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <Drawer
-        sx={{
-          width: 800,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            paddingRight: "1rem",
-            paddingTop: "1rem",
-          },
-        }}
+        className={classes.drawer}
         variant="persistent"
         anchor="right"
         open={props.openDrawer}
       >
-        <div style={{ padding: "3rem 1.5rem" }}>
-          <Button
-            variant="contained"
-            onClick={() => props.setOpenDrawer(false)}
-            component="span"
-          >
-            Close
-          </Button>
+        <Box style={{ padding: "3rem 1.5rem" }}>
+          <header className={classes.header}>
+            <Typography>
+              {props.drawerFor === "update" ? "Update" : "Add"}
+            </Typography>
+            <Button onClick={() => props.setOpenDrawer(false)} component="span">
+              <CloseIcon />
+            </Button>
+          </header>
 
           <Formik
             initialValues={formikInitialValues}
+            validationSchema={formikValidationSchema}
             onSubmit={formikSubmitHandler}
             enableReinitialize
           >
-            {({ handleChange, values, handleReset, handleSubmit }) => (
+            {({
+              handleChange,
+              values,
+              handleReset,
+              handleSubmit,
+              errors,
+              touched,
+              dirty,
+              isValid,
+            }) => (
               <Form>
                 <TextField
                   label="First Name"
@@ -73,6 +79,12 @@ const DocumentDrawer: React.FC<Args> = (props) => {
                   name={"first_name"}
                   value={values.first_name}
                   onChange={handleChange}
+                  error={!!errors.first_name && !!touched.first_name}
+                  helperText={
+                    !!errors.first_name &&
+                    !!touched.first_name &&
+                    errors.first_name
+                  }
                 />
                 <TextField
                   label="Last Name"
@@ -81,6 +93,12 @@ const DocumentDrawer: React.FC<Args> = (props) => {
                   name={"last_name"}
                   value={values.last_name}
                   onChange={handleChange}
+                  error={!!errors.last_name && !!touched.last_name}
+                  helperText={
+                    !!errors.last_name &&
+                    !!touched.last_name &&
+                    errors.last_name
+                  }
                 />
                 <FormControl sx={{ m: 1, width: "100%" }}>
                   <InputLabel id="demo-simple-select-helper-label">
@@ -93,6 +111,7 @@ const DocumentDrawer: React.FC<Args> = (props) => {
                     name={"gender"}
                     value={values.gender}
                     onChange={handleChange}
+                    error={!!errors.gender && !!touched.gender}
                   >
                     <MenuItem value="">
                       <em>None</em>
@@ -108,6 +127,8 @@ const DocumentDrawer: React.FC<Args> = (props) => {
                   name={"email"}
                   value={values.email}
                   onChange={handleChange}
+                  error={!!errors.email && !!touched.email}
+                  helperText={!!errors.email && !!touched.email && errors.email}
                 />
                 <TextField
                   label="Birth year"
@@ -116,6 +137,12 @@ const DocumentDrawer: React.FC<Args> = (props) => {
                   name={"birth_year"}
                   value={values.birth_year}
                   onChange={handleChange}
+                  error={!!errors.birth_year && !!touched.birth_year}
+                  helperText={
+                    !!errors.birth_year &&
+                    !!touched.birth_year &&
+                    errors.birth_year
+                  }
                 />
                 <FormControl sx={{ m: 1, width: "100%" }}>
                   <InputLabel id="demo-simple-select-helper-label">
@@ -128,6 +155,7 @@ const DocumentDrawer: React.FC<Args> = (props) => {
                     label="Athlete"
                     name="sports_person"
                     onChange={handleChange}
+                    error={!!errors.sports_person && !!touched.sports_person}
                   >
                     <MenuItem value="">
                       <em>None</em>
@@ -136,18 +164,22 @@ const DocumentDrawer: React.FC<Args> = (props) => {
                     <MenuItem value={"No"}>No</MenuItem>
                   </Select>
                 </FormControl>
-                <footer>
+                <footer className={classes.footer}>
                   <Button variant="outlined" onClick={() => handleReset()}>
-                    {props.drawerFor === "update" ? "Default" : "Reset"}
+                    Reset
                   </Button>
-                  <Button variant="contained" onClick={() => handleSubmit()}>
+                  <Button
+                    variant="contained"
+                    disabled={!(dirty && isValid)}
+                    onClick={() => handleSubmit()}
+                  >
                     {props.drawerFor === "update" ? "Update" : "Add"}
                   </Button>
                 </footer>
               </Form>
             )}
           </Formik>
-        </div>
+        </Box>
       </Drawer>
     </Box>
   );

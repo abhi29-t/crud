@@ -34,38 +34,64 @@ const DocumentRow: React.FC<Args> = (props) => {
     DocumentRowController();
   return (
     <>
-      <Card>
+      <Card style={{ margin: ".5rem" }}>
         <Grid
           container
           direction="row"
-          style={{ width: "80%", margin: "auto" }}
+          style={{ height: "7rem", margin: "auto" }}
+          wrap="nowrap"
         >
-          <Grid item sm={3} md={2} lg={2}>
+          <Grid
+            item
+            container
+            wrap="nowrap"
+            alignItems={"center"}
+            sm={3}
+            md={2}
+            lg={2}
+          >
+            <Typography
+              style={{
+                fontSize: "3.4rem",
+                padding: "1rem",
+                paddingRight: "1.5rem",
+                color: "white",
+                background: "black",
+                height: "100%",
+              }}
+            >
+              <span
+                style={{
+                  position: "relative",
+                  fontSize: "1.2rem",
+                  top: "-2.6rem",
+                }}
+              >
+                Id:
+              </span>
+              {props.id}
+            </Typography>
             <CardMedia
               component="img"
-              height="140"
               // image={`https://source.unsplash.com/random/900×700/?face,${props.gender}`}
               image={`https://www.goe.com`}
               alt={`${props.first_name} ${props.last_name}`}
+              style={{
+                // marginRight: "1rem",
+                height: "100%",
+                width: "8rem",
+              }}
             />
           </Grid>
-          <Grid item sm={6} md={7} lg={7}>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {props.first_name} {props.last_name}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Sex: {props.gender}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Birth Year: {props.birth_year}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Email: {props.email}
-              </Typography>
-            </CardContent>
+          <Grid item sm={7} md={8} lg={8} style={{ padding: "1.6rem" }}>
+            <Typography gutterBottom variant="h5" component="div">
+              {props.first_name} {props.last_name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Birth Year: {props.birth_year}
+            </Typography>
           </Grid>
-          <Grid item sm={3} md={3} lg={3}>
+          <Grid item sm={2} md={2} lg={2}>
             <Button
               style={{ height: "100%" }}
               onClick={() => remove_student(props.id)}

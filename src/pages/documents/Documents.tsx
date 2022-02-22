@@ -4,6 +4,7 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
+  Grid,
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -22,7 +23,7 @@ const Documents = () => {
   //   const {} = StudentsController();
   const [openDrawer, setOpenDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [studentsPerPage, setStudentsPerPage] = useState(5);
+  const [studentsPerPage, setStudentsPerPage] = useState(4);
   const { fetch_studentsData } = useActions();
   const { loading, error, studentsData, totalStudents } = useTypedSelector(
     (state) => state.studentsRecord
@@ -108,39 +109,46 @@ const Documents = () => {
 
   return (
     <Main>
-      <Box sx={{ minWidth: 120 }}>
-        <Typography>Sort By:</Typography>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={sortBy}
-            // label="Sort By"
-            onChange={handleSorting}
-          >
-            <MenuItem value={"first_name"}>First Name</MenuItem>
-            <MenuItem value={"last_name"}>Last Name</MenuItem>
-            <MenuItem value={"birth_year"}>Birth Year</MenuItem>
-          </Select>
-        </FormControl>
-        <Typography>in</Typography>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={order}
-            // label="Sort By"
-            onChange={handleOrder}
-          >
-            <MenuItem value={"asc"}>Ascending</MenuItem>
-            <MenuItem value={"dsc"}>Descending</MenuItem>
-          </Select>
-        </FormControl>
+      <Grid
+        container
+        alignItems={"center"}
+        justifyContent="space-between"
+        style={{ marginBottom: "2rem" }}
+      >
+        <Box sx={{ minWidth: 120, display: "flex", alignItems: "center" }}>
+          <Typography>Sort By:</Typography>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={sortBy}
+              // label="Sort By"
+              onChange={handleSorting}
+            >
+              <MenuItem value={"first_name"}>First Name</MenuItem>
+              <MenuItem value={"last_name"}>Last Name</MenuItem>
+              <MenuItem value={"birth_year"}>Birth Year</MenuItem>
+            </Select>
+          </FormControl>
+          <Typography>in</Typography>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={order}
+              // label="Sort By"
+              onChange={handleOrder}
+            >
+              <MenuItem value={"asc"}>Ascending</MenuItem>
+              <MenuItem value={"dsc"}>Descending</MenuItem>
+            </Select>
+          </FormControl>
 
-        <Typography>order</Typography>
-      </Box>
+          <Typography>order</Typography>
+        </Box>
 
-      <Button onClick={() => setOpenDrawer(true)}>Add</Button>
+        <Button onClick={() => setOpenDrawer(true)}>Add</Button>
+      </Grid>
       {currentStudentsToShow.length !== 0 &&
         currentStudentsToShow.map((student: Student) => (
           <DocumentRow

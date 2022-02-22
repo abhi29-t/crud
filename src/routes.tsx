@@ -8,7 +8,7 @@ import { Box } from "@mui/material";
 import Home from "./pages/home";
 // import Students from "./pages/students-list/Students";
 import Student from "./pages/student";
-import NotFound from "./pages/Common/NotFound";
+import PageNotFound from "./pages/Common/PageNotFound";
 import Documents from "./pages/documents";
 
 const Routes = () => {
@@ -18,11 +18,16 @@ const Routes = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/documents" element={<Documents />} />
         <Route path="/doc-:docID" element={<Student />} />
-        <Route path="/not_found" element={<NotFound />} />
 
         {/* Usual */}
-        {/* <Route path="*" element={<Navigate replace to={"/not_found"} />} /> */}
+        <Route path="*" element={<PageNotFound />} />
         <Route path="/" element={<Navigate replace to={"/home"} />} />
+
+        {/* Spell Errors */}
+        <Route
+          path="/document"
+          element={<Navigate replace to={"/documents"} />}
+        />
       </RouterRoutes>
     </Box>
   );

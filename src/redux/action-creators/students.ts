@@ -20,8 +20,8 @@ export const fetch_studentsData = () => async (dispatch: Dispatch<Action>) => {
     setTimeout(() => {
       dispatch({
         type: ActionType.FETCH_STUDENTS_LIST_SUCCESS,
-        payload: data,
-        totalStudents: data.length,
+        payload: data.slice(0, 25),
+        totalStudents: data.slice(0, 25).length,
       });
     }, 1500);
   } catch (error: any) {
