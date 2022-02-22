@@ -18,7 +18,8 @@ const Pagination: React.FC<Args> = ({
   activePage,
 }) => {
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(totalStudents / studentsPerPage); i++) {
+  const pagesPossible = Math.ceil(totalStudents / studentsPerPage);
+  for (let i = 1; i <= pagesPossible; i++) {
     pageNumbers.push(i);
   }
   const classes = useStyles();
@@ -26,7 +27,15 @@ const Pagination: React.FC<Args> = ({
     <nav className={classes.root}>
       <ul className={classes.ul}>
         <li className={classes.action}>
-          <Button>Prev</Button>
+          <Button
+            disabled={activePage - 1 === 0}
+            onClick={() => {
+              if (activePage - 1 === 0) return;
+              paginate(activePage - 1);
+            }}
+          >
+            Prev
+          </Button>
         </li>{" "}
         {pageNumbers.map((num) => (
           <li
@@ -37,7 +46,15 @@ const Pagination: React.FC<Args> = ({
           </li>
         ))}{" "}
         <li className={classes.action}>
-          <Button>Next</Button>
+          <Button
+            disabled={activePage + 1 === 0}
+            onClick={() => {
+              if (activePage + 1 === pagesPossible + 1) return;
+              paginate(activePage + 1);
+            }}
+          >
+            Next
+          </Button>
         </li>
       </ul>
     </nav>
