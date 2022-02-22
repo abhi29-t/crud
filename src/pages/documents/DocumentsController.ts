@@ -99,6 +99,7 @@ const DocumentsController = () => {
     sortBy,
     loading,
     openDrawer,
+    currentPage,
     totalStudents,
     studentsPerPage,
     currentStudentsToShow,

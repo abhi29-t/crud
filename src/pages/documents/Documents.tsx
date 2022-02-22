@@ -3,19 +3,18 @@ import {
   Box,
   Button,
   FormControl,
-  InputLabel,
   MenuItem,
   Grid,
   Typography,
 } from "@mui/material";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
 // COMPONENTS
 import DocumentRow from "./document-row";
 import Loader from "../../components/Loader";
 import DocumentDrawer from "./document-drawer";
 import NoDataFound from "../Common/NoDataFound";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/pagination/Pagination";
 
 // CONTROLLER
 import DocumentsController from "./DocumentsController";
@@ -33,6 +32,7 @@ const Documents = () => {
     sortBy,
     loading,
     openDrawer,
+    currentPage,
     totalStudents,
     studentsPerPage,
     currentStudentsToShow,
@@ -109,6 +109,7 @@ const Documents = () => {
           studentsPerPage={studentsPerPage}
           totalStudents={totalStudents}
           paginate={paginate}
+          activePage={currentPage}
         />
       )}
       <DocumentDrawer

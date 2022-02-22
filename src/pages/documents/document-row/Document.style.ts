@@ -1,9 +1,6 @@
 import { Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
-// CONSTANTS
-export const drawerWidth = 640;
-
 export const useStyles: any = makeStyles((theme: Theme) => ({
   idText: {
     fontSize: "3.4rem",
