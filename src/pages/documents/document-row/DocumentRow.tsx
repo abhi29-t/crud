@@ -17,6 +17,7 @@ import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 // IMPORT COMPONENT
 import DocumentRowController from "./DocumentRowController";
 import DocumentDrawer from "../document-drawer";
+import { useStyles } from "./Document.style";
 
 type Args = {
   id: number;
@@ -32,6 +33,7 @@ type Args = {
 const DocumentRow: React.FC<Args> = (props) => {
   const { redirectTo, remove_student, openDrawer, setOpenDrawer } =
     DocumentRowController();
+  const classes = useStyles();
   return (
     <>
       <Card style={{ margin: ".5rem" }}>
@@ -50,25 +52,8 @@ const DocumentRow: React.FC<Args> = (props) => {
             md={2}
             lg={2}
           >
-            <Typography
-              style={{
-                fontSize: "3.4rem",
-                padding: "1rem",
-                paddingRight: "1.5rem",
-                color: "white",
-                background: "black",
-                height: "100%",
-              }}
-            >
-              <span
-                style={{
-                  position: "relative",
-                  fontSize: "1.2rem",
-                  top: "-2.6rem",
-                }}
-              >
-                Id:
-              </span>
+            <Typography className={classes.idText}>
+              <span className={classes.idTextSmall}>Id:</span>
               {props.id}
             </Typography>
             <CardMedia
@@ -77,13 +62,12 @@ const DocumentRow: React.FC<Args> = (props) => {
               image={`https://www.goe.com`}
               alt={`${props.first_name} ${props.last_name}`}
               style={{
-                // marginRight: "1rem",
                 height: "100%",
                 width: "8rem",
               }}
             />
           </Grid>
-          <Grid item sm={7} md={8} lg={8} style={{ padding: "1.6rem" }}>
+          <Grid item sm={7} md={8} lg={8} style={{ padding: "1.4rem" }}>
             <Typography gutterBottom variant="h5" component="div">
               {props.first_name} {props.last_name}
             </Typography>
@@ -91,25 +75,16 @@ const DocumentRow: React.FC<Args> = (props) => {
               Birth Year: {props.birth_year}
             </Typography>
           </Grid>
-          <Grid item sm={2} md={2} lg={2}>
-            <Button
-              style={{ height: "100%" }}
-              onClick={() => remove_student(props.id)}
-            >
+          <Grid item sm={2} md={2} lg={2} className={classes.actionButtons}>
+            <Button onClick={() => remove_student(props.id)}>
               <DeleteSweepIcon />
             </Button>{" "}
-            |
-            <Button
-              style={{ height: "100%" }}
-              onClick={() => setOpenDrawer(true)}
-            >
-              <ModeEditIcon />
-            </Button>
             |{" "}
-            <Button
-              style={{ height: "100%" }}
-              onClick={() => redirectTo(`/doc-${props.id}`)}
-            >
+            <Button onClick={() => setOpenDrawer(true)}>
+              <ModeEditIcon />
+            </Button>{" "}
+            |{" "}
+            <Button onClick={() => redirectTo(`/doc-${props.id}`)}>
               <ArrowForwardIosIcon />
             </Button>
           </Grid>
