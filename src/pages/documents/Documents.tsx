@@ -1,3 +1,4 @@
+// MATERIAL UI COMPONENTS
 import {
   Box,
   Button,
@@ -7,148 +8,88 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
-import Loader from "../../components/Loader";
-import Pagination from "../../components/Pagination";
-import useActions from "../../hooks/useActions";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { Student } from "../../Types/students";
-import DataNotFound from "../Common/DataNotFound";
-import DocumentDrawer from "./document-drawer";
-import DocumentRow from "./document-row";
-import { Main } from "./Documents.style";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
+// COMPONENTS
+import DocumentRow from "./document-row";
+import Loader from "../../components/Loader";
+import DocumentDrawer from "./document-drawer";
+import NoDataFound from "../Common/NoDataFound";
+import Pagination from "../../components/Pagination";
+
+// CONTROLLER
+import DocumentsController from "./DocumentsController";
+
+// CUSTOM STYLE
+import { Main } from "./Documents.style";
+
+// TYPES
+import { Student } from "../../Types/students";
+
 const Documents = () => {
-  //   const {} = StudentsController();
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [studentsPerPage, setStudentsPerPage] = useState(4);
-  const { fetch_studentsData } = useActions();
-  const { loading, error, studentsData, totalStudents } = useTypedSelector(
-    (state) => state.studentsRecord
-  );
-  useEffect(() => {
-    setStudentsList(studentsData);
-  }, [studentsData]);
-  const [studentsList, setStudentsList] = useState<any>([]);
-
-  const indexOfLastStudent = currentPage * studentsPerPage;
-  const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
-  const currentStudentsToShow = studentsList.slice(
-    indexOfFirstStudent,
-    indexOfLastStudent
-  );
-  const paginate = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
-  const [sortBy, setSortBy] = useState("first_name");
-
-  const handleSorting = (event: SelectChangeEvent) => {
-    setSortBy(event.target.value as string);
-    sorting(event.target.value as string);
-  };
-
-  const handleOrder = (event: SelectChangeEvent) => {
-    setOrder(event.target.value as string);
-    sorting(sortBy);
-  };
-
-  const [order, setOrder] = useState("asc");
-
-  const sorting = (param: string) => {
-    if (order === "asc") {
-      let sorted: Student[] = [];
-      switch (param) {
-        case "birth_year":
-          sorted = [...studentsData].sort((a: any, b: any) => {
-            return a[param] > b[param] ? 1 : -1;
-          });
-          break;
-        case "sports_person":
-          sorted = [...studentsData].sort((a: any, b: any) => {
-            return a[param] > b[param] ? 1 : -1;
-          });
-          break;
-        default:
-          sorted = [...studentsData].sort((a: any, b: any) => {
-            return a[param].toLowerCase() > b[param].toLowerCase() ? 1 : -1;
-          });
-          break;
-      }
-      setStudentsList(sorted);
-      setOrder("dsc");
-    }
-    if (order === "dsc") {
-      let sorted: Student[] = [];
-      switch (param) {
-        case "birth_year":
-          sorted = [...studentsData].sort((a: any, b: any) => {
-            return a[param] < b[param] ? 1 : -1;
-          });
-          break;
-        case "sports_person":
-          sorted = [...studentsData].sort((a: any, b: any) => {
-            return a[param] < b[param] ? 1 : -1;
-          });
-          break;
-        default:
-          sorted = [...studentsData].sort((a: any, b: any) => {
-            return a[param].toLowerCase() < b[param].toLowerCase() ? 1 : -1;
-          });
-          break;
-      }
-      setStudentsList(sorted);
-      setOrder("asc");
-    }
-  };
-
-  useEffect(() => {
-    fetch_studentsData();
-  }, []);
+  const {
+    order,
+    error,
+    sortBy,
+    loading,
+    openDrawer,
+    totalStudents,
+    studentsPerPage,
+    currentStudentsToShow,
+    paginate,
+    handleOrder,
+    setOpenDrawer,
+    handleSorting,
+  } = DocumentsController();
 
   return (
     <Main>
-      <Grid
-        container
-        alignItems={"center"}
-        justifyContent="space-between"
-        style={{ marginBottom: "2rem" }}
-      >
-        <Box sx={{ minWidth: 120, display: "flex", alignItems: "center" }}>
-          <Typography>Sort By:</Typography>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={sortBy}
-              // label="Sort By"
-              onChange={handleSorting}
-            >
-              <MenuItem value={"first_name"}>First Name</MenuItem>
-              <MenuItem value={"last_name"}>Last Name</MenuItem>
-              <MenuItem value={"birth_year"}>Birth Year</MenuItem>
-            </Select>
-          </FormControl>
-          <Typography>in</Typography>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={order}
-              // label="Sort By"
-              onChange={handleOrder}
-            >
-              <MenuItem value={"asc"}>Ascending</MenuItem>
-              <MenuItem value={"dsc"}>Descending</MenuItem>
-            </Select>
-          </FormControl>
+      {loading && <Loader />}
+      {currentStudentsToShow.length === 0 && !loading && error && (
+        <NoDataFound />
+      )}
+      {!loading && currentStudentsToShow.length > 0 && (
+        <Grid
+          container
+          alignItems={"center"}
+          justifyContent="space-between"
+          style={{ marginBottom: "2rem" }}
+        >
+          <Box sx={{ minWidth: 120, display: "flex", alignItems: "center" }}>
+            <Typography>Sort By:</Typography>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={sortBy}
+                // label="Sort By"
+                onChange={handleSorting}
+              >
+                <MenuItem value={"first_name"}>First Name</MenuItem>
+                <MenuItem value={"last_name"}>Last Name</MenuItem>
+                <MenuItem value={"birth_year"}>Birth Year</MenuItem>
+              </Select>
+            </FormControl>
+            <Typography>in</Typography>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={order}
+                // label="Sort By"
+                onChange={handleOrder}
+              >
+                <MenuItem value={"asc"}>Ascending</MenuItem>
+                <MenuItem value={"dsc"}>Descending</MenuItem>
+              </Select>
+            </FormControl>
 
-          <Typography>order</Typography>
-        </Box>
+            <Typography>order</Typography>
+          </Box>
 
-        <Button onClick={() => setOpenDrawer(true)}>Add</Button>
-      </Grid>
+          <Button onClick={() => setOpenDrawer(true)}>Add</Button>
+        </Grid>
+      )}
       {currentStudentsToShow.length !== 0 &&
         currentStudentsToShow.map((student: Student) => (
           <DocumentRow
@@ -163,15 +104,13 @@ const Documents = () => {
             sports_person={student.sports_person}
           />
         ))}
-      {totalStudents !== 0 && (
+      {currentStudentsToShow.length !== 0 && (
         <Pagination
           studentsPerPage={studentsPerPage}
           totalStudents={totalStudents}
           paginate={paginate}
         />
       )}
-      {loading && <Loader />}
-      {error && <DataNotFound />}
       <DocumentDrawer
         drawerFor="add"
         openDrawer={openDrawer}

@@ -1,12 +1,10 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // MATERIAL UI COMPONENTS
 import { Grid, Typography, Box } from "@mui/material";
 
 const Home = () => {
-  const location = useLocation();
-  console.log("navigate", location);
   return (
     <Grid
       container

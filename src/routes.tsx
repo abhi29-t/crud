@@ -7,7 +7,7 @@ import { Box } from "@mui/material";
 // Components
 import Home from "./pages/home";
 // import Students from "./pages/students-list/Students";
-import Student from "./pages/student";
+import Document from "./pages/document";
 import PageNotFound from "./pages/Common/PageNotFound";
 import Documents from "./pages/documents";
 
@@ -17,7 +17,7 @@ const Routes = () => {
       <RouterRoutes>
         <Route path="/home" element={<Home />} />
         <Route path="/documents" element={<Documents />} />
-        <Route path="/doc-:docID" element={<Student />} />
+        <Route path="/doc-:docID" element={<Document />} />
 
         {/* Usual */}
         <Route path="*" element={<PageNotFound />} />

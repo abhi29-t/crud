@@ -1,45 +1,22 @@
-import React, { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-
 // MATERIAL UI COMPONENTS
 import { Button, Grid, Typography } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
-// CUSTOM HOOKS
-import { useTypedSelector } from "../../hooks/useTypedSelector";
-import useActions from "../../hooks/useActions";
-
-// TYPES
-import { Student as typeStudent } from "../../Types/students";
-
 // COMPONENTS
 import Loader from "../../components/Loader";
+import DocumentController from "./DocumentController";
 
-const Student = () => {
+const Document = () => {
   const {
-    loading,
     error,
+    loading,
     totalStudents,
-    selectedStudent: currentStudent,
-  } = useTypedSelector((state) => state.studentsRecord);
-  const { get_StudentDetails } = useActions();
-  const params = useParams();
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (params.docID) get_StudentDetails(+params.docID);
-  }, []);
+    currentStudent,
+    nextStudent,
+    previousStudent,
+  } = DocumentController();
 
-  // const currentStudent = studentsData!.find(
-  //   (stud: typeStudent) => stud.id.toString() === params.docID
-  // );
-  const nextStudent = (id: number = 2) => {
-    navigate(`/doc-${id + 1}`);
-    get_StudentDetails(id + 1);
-  };
-  const previousStudent = (id: number = 2) => {
-    navigate(`/doc-${id - 1}`);
-  };
   if (loading) {
     return <Loader />;
   }
@@ -73,7 +50,7 @@ const Student = () => {
               <Grid item container padding="1.5rem 0">
                 <Grid item md={3} lg={5}>
                   <img
-                    // src={`https://source.unsplash.com/random/900×700/?face,${currentStudent?.gender}`}
+                    src={`https://source.unsplash.com/random/900×700/?face,${currentStudent?.gender}`}
                     style={{ height: "100%", width: "100%" }}
                     alt={`${currentStudent!.first_name} ${
                       currentStudent!.last_name
@@ -111,4 +88,4 @@ const Student = () => {
   );
 };
 
-export default Student;
+export default Document;

@@ -6,7 +6,6 @@ import { Grid, Typography, Box } from "@mui/material";
 
 const NotFound = () => {
   const location = useLocation();
-  console.log("navigate", location);
   return (
     <Grid
       container
