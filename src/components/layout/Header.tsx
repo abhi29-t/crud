@@ -1,3 +1,6 @@
+import { NavLink } from "react-router-dom";
+
+// MATERIAL UI COMPONENTS
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,11 +10,9 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 
-import { NavLink } from "react-router-dom";
-
 const pages = [
   { title: "Home", link: "/home" },
-  { title: "Students", link: "/documents" },
+  { title: "Documents", link: "/documents" },
 ];
 
 const Header = () => {
@@ -50,7 +51,7 @@ const Header = () => {
           {/* // Account Button */}
           <Box sx={{ flexGrow: 0 }}>
             <IconButton sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <Avatar alt="Abhishek" src="/static/images/avatar/2.jpg" />
             </IconButton>
           </Box>
         </Toolbar>

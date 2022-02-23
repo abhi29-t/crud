@@ -15,6 +15,7 @@ import Loader from "../../components/Loader";
 import DocumentDrawer from "./document-drawer";
 import NoDataFound from "../Common/NoDataFound";
 import Pagination from "../../components/pagination/Pagination";
+import Backdrop from "../../components/backdrop/Backdrop";
 
 // CONTROLLER
 import DocumentsController from "./DocumentsController";
@@ -44,6 +45,11 @@ const Documents = () => {
 
   return (
     <Main>
+      {/* <DeleteModal
+        title={"Delete"}
+        message={"Do you want to delete this?"}
+        onConfirm={() => console.log("HI")}
+      /> */}
       {loading && <Loader />}
       {currentStudentsToShow.length === 0 && !loading && error && (
         <NoDataFound />
@@ -118,6 +124,7 @@ const Documents = () => {
         setOpenDrawer={setOpenDrawer}
         data={""}
       />
+      {openDrawer && <Backdrop onClick={() => setOpenDrawer(false)} />}
     </Main>
   );
 };

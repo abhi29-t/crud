@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // MATERIAL UI COMPONENTS
@@ -18,6 +18,8 @@ import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import DocumentRowController from "./DocumentRowController";
 import DocumentDrawer from "../document-drawer";
 import { useStyles } from "./Document.style";
+import Backdrop from "../../../components/backdrop/Backdrop";
+import DeleteModal from "../../../components/modal/DeleteModal";
 
 type Args = {
   id: number;
@@ -34,6 +36,7 @@ const DocumentRow: React.FC<Args> = (props) => {
   const { redirectTo, remove_student, openDrawer, setOpenDrawer } =
     DocumentRowController();
   const classes = useStyles();
+  const [openModal, setOpenModal] = useState(false);
   return (
     <>
       <Card style={{ margin: ".5rem" }}>
@@ -76,7 +79,9 @@ const DocumentRow: React.FC<Args> = (props) => {
             </Typography>
           </Grid>
           <Grid item sm={2} md={2} lg={2} className={classes.actionButtons}>
-            <Button onClick={() => remove_student(props.id)}>
+            <Button onClick={() => setOpenModal(true)}>
+              {/* <Button onClick={() => }> */}
+
               <DeleteSweepIcon />
             </Button>{" "}
             |{" "}
@@ -96,6 +101,18 @@ const DocumentRow: React.FC<Args> = (props) => {
         setOpenDrawer={setOpenDrawer}
         data={props}
       />
+      {openDrawer && <Backdrop onClick={() => setOpenDrawer(false)} />}
+      {openModal && (
+        <DeleteModal
+          title="Are you sure?"
+          message="Do you really want to delete this document?"
+          onConfirm={() => {
+            remove_student(props.id);
+            setOpenModal(false);
+          }}
+          onCancel={() => setOpenModal(false)}
+        />
+      )}
     </>
   );
 };

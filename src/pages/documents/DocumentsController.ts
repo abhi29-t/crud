@@ -10,7 +10,7 @@ const DocumentsController = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [studentsList, setStudentsList] = useState<any>([]);
-  const [studentsPerPage, setStudentsPerPage] = useState(4);
+  const [studentsPerPage, setStudentsPerPage] = useState(5);
 
   const { fetch_studentsData } = useActions();
   const { loading, error, studentsData, totalStudents } = useTypedSelector(

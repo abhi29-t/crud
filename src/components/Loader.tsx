@@ -1,12 +1,18 @@
+// MATERIAL UI COMPONENTS
 import { CircularProgress } from "@mui/material";
-import React from "react";
+
+// CUSTOM COMPONENTS
+import Backdrop from "./backdrop/Backdrop";
 
 const Loader = () => {
   return (
-    <CircularProgress
-      color="secondary"
-      style={{ position: "absolute", top: "50%", left: "50%" }}
-    />
+    <>
+      <Backdrop onClick={() => {}} />
+      <CircularProgress
+        color="secondary"
+        style={{ position: "absolute", top: "50%", left: "50%" }}
+      />
+    </>
   );
 };
 
