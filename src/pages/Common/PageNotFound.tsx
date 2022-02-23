@@ -4,6 +4,9 @@ import { Link, useLocation } from "react-router-dom";
 // MATERIAL UI COMPONENTS
 import { Grid, Typography, Box } from "@mui/material";
 
+// IMAGE
+import notFoundImg from "../../images/not_found.svg";
+
 const NotFound = () => {
   const location = useLocation();
   return (
@@ -15,7 +18,7 @@ const NotFound = () => {
       direction="row"
     >
       <Grid item lg={6} sm={7} sx={{ p: 2 }}>
-        <img src="./images/not_found.svg" width={"70%"} />
+        <img src={notFoundImg} width={"70%"} />
       </Grid>
       <Grid item lg={6} sm={5}>
         <Box>

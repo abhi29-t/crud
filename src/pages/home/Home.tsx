@@ -1,6 +1,9 @@
 // MATERIAL UI COMPONENTS
 import { Grid, Typography } from "@mui/material";
 
+// IMAGES
+import home from "../../images/hello.svg";
+
 const Home = () => {
   return (
     <Grid
@@ -16,7 +19,7 @@ const Home = () => {
         </Typography>
       </Grid>
       <Grid item lg={6} sm={7} sx={{ p: 2 }}>
-        <img src="./images/hello.svg" width={"70%"} />
+        <img src={home} width={"70%"} />
       </Grid>
     </Grid>
   );

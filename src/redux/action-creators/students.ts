@@ -14,7 +14,7 @@ export const fetch_studentsData = () => async (dispatch: Dispatch<Action>) => {
     type: ActionType.FETCH_STUDENTS_LIST,
   });
   try {
-    const { data } = await LocalhostApi.get("/mock/students_data.json");
+    const { data } = await LocalhostApi.get("/students_data.json");
 
     setTimeout(() => {
       dispatch({
@@ -36,7 +36,7 @@ export const get_StudentDetails =
     dispatch({ type: ActionType.GET_STUDENT_DETAILS });
 
     try {
-      const { data } = await LocalhostApi.get("/mock/students_data.json");
+      const { data } = await LocalhostApi.get("/students_data.json");
       const studentRequired = data.find(
         (student: Student) => student.id === id
       );
