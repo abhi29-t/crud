@@ -15,7 +15,7 @@ import Loader from "../../components/Loader";
 import DocumentDrawer from "./document-drawer";
 import NoDataFound from "../Common/NoDataFound";
 import Pagination from "../../components/pagination/Pagination";
-import Backdrop from "../../components/backdrop/Backdrop";
+import Backdrop from "../../components/backdrop";
 
 // CONTROLLER
 import DocumentsController from "./DocumentsController";
@@ -28,7 +28,7 @@ import { Student } from "../../Types/students";
 
 const Documents = () => {
   const {
-    order,
+    sortingOrder,
     error,
     sortBy,
     loading,
@@ -45,15 +45,14 @@ const Documents = () => {
 
   return (
     <Main>
-      {/* <DeleteModal
-        title={"Delete"}
-        message={"Do you want to delete this?"}
-        onConfirm={() => console.log("HI")}
-      /> */}
       {loading && <Loader />}
+
+      {/* If no data found */}
       {currentStudentsToShow.length === 0 && !loading && error && (
         <NoDataFound />
       )}
+
+      {/* Sorting options*/}
       {!loading && currentStudentsToShow.length > 0 && (
         <Grid
           container
@@ -68,7 +67,6 @@ const Documents = () => {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={sortBy}
-                // label="Sort By"
                 onChange={handleSorting}
               >
                 <MenuItem value={"first_name"}>First Name</MenuItem>
@@ -81,8 +79,7 @@ const Documents = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={order}
-                // label="Sort By"
+                value={sortingOrder}
                 onChange={handleOrder}
               >
                 <MenuItem value={"asc"}>Ascending</MenuItem>
@@ -96,8 +93,10 @@ const Documents = () => {
           <Button onClick={() => setOpenDrawer(true)}>Add</Button>
         </Grid>
       )}
+
+      {/* Documents to show */}
       {currentStudentsToShow.length !== 0 &&
-        currentStudentsToShow.map((student: Student) => (
+        currentStudentsToShow.map((student: Student, index: number) => (
           <DocumentRow
             key={student.id}
             id={student.id}
@@ -110,7 +109,9 @@ const Documents = () => {
             sports_person={student.sports_person}
           />
         ))}
-      {currentStudentsToShow.length !== 0 && (
+
+      {/* Pagination */}
+      {currentStudentsToShow.length > 0 && (
         <Pagination
           studentsPerPage={studentsPerPage}
           totalStudents={totalStudents}
@@ -118,12 +119,16 @@ const Documents = () => {
           activePage={currentPage}
         />
       )}
+
+      {/* Drawer to add */}
       <DocumentDrawer
         drawerFor="add"
         openDrawer={openDrawer}
         setOpenDrawer={setOpenDrawer}
         data={""}
       />
+
+      {/* Backdrop on opening Drawer to add */}
       {openDrawer && <Backdrop onClick={() => setOpenDrawer(false)} />}
     </Main>
   );

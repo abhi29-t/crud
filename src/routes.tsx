@@ -6,7 +6,6 @@ import { Box } from "@mui/material";
 
 // Components
 import Home from "./pages/home";
-// import Students from "./pages/students-list/Students";
 import Document from "./pages/document";
 import PageNotFound from "./pages/Common/PageNotFound";
 import Documents from "./pages/documents";

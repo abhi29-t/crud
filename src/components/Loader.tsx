@@ -2,7 +2,7 @@
 import { CircularProgress } from "@mui/material";
 
 // CUSTOM COMPONENTS
-import Backdrop from "./backdrop/Backdrop";
+import Backdrop from "./backdrop";
 
 const Loader = () => {
   return (

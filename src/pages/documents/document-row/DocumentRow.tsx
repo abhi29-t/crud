@@ -1,24 +1,18 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 
 // MATERIAL UI COMPONENTS
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  Grid,
-  Button,
-} from "@mui/material";
+import { Card, CardMedia, Typography, Grid, Button } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 
+// CUSTOM STYLES
+import { useStyles } from "./DocumentRow.style";
+
 // IMPORT COMPONENT
 import DocumentRowController from "./DocumentRowController";
 import DocumentDrawer from "../document-drawer";
-import { useStyles } from "./Document.style";
-import Backdrop from "../../../components/backdrop/Backdrop";
+import Backdrop from "../../../components/backdrop";
 import DeleteModal from "../../../components/modal/DeleteModal";
 
 type Args = {
@@ -33,10 +27,16 @@ type Args = {
 };
 
 const DocumentRow: React.FC<Args> = (props) => {
-  const { redirectTo, remove_student, openDrawer, setOpenDrawer } =
-    DocumentRowController();
+  const {
+    openModal,
+    openDrawer,
+    redirectTo,
+    setOpenModal,
+    setOpenDrawer,
+    remove_student,
+  } = DocumentRowController();
   const classes = useStyles();
-  const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
       <Card style={{ margin: ".5rem" }}>
@@ -61,8 +61,7 @@ const DocumentRow: React.FC<Args> = (props) => {
             </Typography>
             <CardMedia
               component="img"
-              // image={`https://source.unsplash.com/random/900×700/?face,${props.gender}`}
-              image={`https://www.goe.com`}
+              image={`https://source.unsplash.com/random/900×700/?face,${props.gender}`}
               alt={`${props.first_name} ${props.last_name}`}
               style={{
                 height: "100%",
@@ -80,8 +79,6 @@ const DocumentRow: React.FC<Args> = (props) => {
           </Grid>
           <Grid item sm={2} md={2} lg={2} className={classes.actionButtons}>
             <Button onClick={() => setOpenModal(true)}>
-              {/* <Button onClick={() => }> */}
-
               <DeleteSweepIcon />
             </Button>{" "}
             |{" "}
@@ -101,7 +98,11 @@ const DocumentRow: React.FC<Args> = (props) => {
         setOpenDrawer={setOpenDrawer}
         data={props}
       />
+
+      {/* Backdrop on opening drawer to edit */}
       {openDrawer && <Backdrop onClick={() => setOpenDrawer(false)} />}
+
+      {/* Delete confirmation model*/}
       {openModal && (
         <DeleteModal
           title="Are you sure?"

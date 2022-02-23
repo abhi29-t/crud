@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 // CUSTOM COMPONENT
-import Backdrop from "../backdrop/Backdrop";
+import Backdrop from "../backdrop";
 import Modal from "./Modal";
 
 type Props = {

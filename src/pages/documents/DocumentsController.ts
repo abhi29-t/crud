@@ -1,16 +1,22 @@
-import { SelectChangeEvent } from "@mui/material/Select";
 import React, { useEffect, useState } from "react";
+
+// MATERIAL UI COMPONENTS
+import { SelectChangeEvent } from "@mui/material/Select";
+
+// CUSTOM HOOKS
 import useActions from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+
+// TYPES
 import { Student } from "../../Types/students";
 
 const DocumentsController = () => {
-  const [order, setOrder] = useState("asc");
+  const [sortingOrder, setSortingOrder] = useState("asc");
   const [sortBy, setSortBy] = useState("first_name");
   const [openDrawer, setOpenDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [studentsList, setStudentsList] = useState<any>([]);
-  const [studentsPerPage, setStudentsPerPage] = useState(5);
+  const studentsPerPage = useState(5)[0];
 
   const { fetch_studentsData } = useActions();
   const { loading, error, studentsData, totalStudents } = useTypedSelector(
@@ -34,12 +40,12 @@ const DocumentsController = () => {
   };
 
   const handleOrder = (event: SelectChangeEvent) => {
-    setOrder(event.target.value as string);
+    setSortingOrder(event.target.value as string);
     sorting(sortBy);
   };
 
   const sorting = (param: string) => {
-    if (order === "asc") {
+    if (sortingOrder === "asc") {
       let sorted: Student[] = [];
       switch (param) {
         case "birth_year":
@@ -59,9 +65,9 @@ const DocumentsController = () => {
           break;
       }
       setStudentsList(sorted);
-      setOrder("dsc");
+      setSortingOrder("dsc");
     }
-    if (order === "dsc") {
+    if (sortingOrder === "dsc") {
       let sorted: Student[] = [];
       switch (param) {
         case "birth_year":
@@ -81,7 +87,7 @@ const DocumentsController = () => {
           break;
       }
       setStudentsList(sorted);
-      setOrder("asc");
+      setSortingOrder("asc");
     }
   };
 
@@ -94,7 +100,7 @@ const DocumentsController = () => {
   }, [studentsData]);
 
   return {
-    order,
+    sortingOrder,
     error,
     sortBy,
     loading,

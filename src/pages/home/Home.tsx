@@ -1,8 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
 // MATERIAL UI COMPONENTS
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 const Home = () => {
   return (

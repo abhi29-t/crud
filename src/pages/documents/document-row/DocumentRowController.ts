@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // CUSTOM HOOKS
@@ -7,9 +7,17 @@ import useActions from "../../../hooks/useActions";
 const DocumentRowController = () => {
   const redirectTo = useNavigate();
   const { remove_student } = useActions();
+  const [openModal, setOpenModal] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
 
-  return { redirectTo, remove_student, openDrawer, setOpenDrawer };
+  return {
+    openModal,
+    openDrawer,
+    redirectTo,
+    setOpenModal,
+    setOpenDrawer,
+    remove_student,
+  };
 };
 
 export default DocumentRowController;

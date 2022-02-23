@@ -56,7 +56,6 @@ export const studentsDataReducer = (
         ...state,
         loading: true,
         error: null,
-        // selectedStudent: {},
       };
     case ActionType.GET_STUDENT_DETAILS_SUCCESS:
       return {
@@ -71,7 +70,6 @@ export const studentsDataReducer = (
         ...state,
         loading: false,
         error: action.payload,
-        // selectedStudent: {},
       };
 
     // ADD STUDENT

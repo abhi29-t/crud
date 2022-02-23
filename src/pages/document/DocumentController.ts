@@ -5,9 +5,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import useActions from "../../hooks/useActions";
 
-// TYPES
-import { Student as typeStudent } from "../../Types/students";
-
 const DocumentController = () => {
   const {
     loading,
@@ -15,21 +12,23 @@ const DocumentController = () => {
     totalStudents,
     selectedStudent: currentStudent,
   } = useTypedSelector((state) => state.studentsRecord);
-  const { get_StudentDetails } = useActions();
   const params = useParams();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (params.docID) get_StudentDetails(+params.docID);
-  }, []);
+  const { get_StudentDetails } = useActions();
 
   const nextStudent = (id: number = 2) => {
     navigate(`/doc-${id + 1}`);
     get_StudentDetails(id + 1);
   };
+
   const previousStudent = (id: number = 2) => {
     navigate(`/doc-${id - 1}`);
     get_StudentDetails(id - 1);
   };
+
+  useEffect(() => {
+    if (params.docID) get_StudentDetails(+params.docID);
+  }, []);
   return {
     error,
     loading,

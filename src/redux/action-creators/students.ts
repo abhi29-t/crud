@@ -7,7 +7,6 @@ import { Student } from "../../Types/students";
 // IMPORT ACTION TYPES
 import { ActionType } from "../types/action-types";
 import { StudentsAction as Action } from "../types/actions";
-import { StudentsState } from "../types/initial-states-type";
 
 // Fetching entire students record on first load
 export const fetch_studentsData = () => async (dispatch: Dispatch<Action>) => {
